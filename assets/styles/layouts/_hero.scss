@@ -1,0 +1,37 @@
+.hero {
+  background-size: cover;
+  background-position: center !important;
+  min-height: 500px;
+
+  .hero-block {
+    @media screen and (max-width: 540px) {
+      align-items: center;
+    }
+  }
+
+  .hero-title {
+    font-size: 40px;
+    color: #fff;
+  }
+
+  .hero-subtitle {
+    font-size: 25px;
+    color: #fff;
+    padding: 20px 0;
+  }
+
+  .hero-btn {
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+
+    @media screen and (max-width: 540px) {
+      align-self: center;
+    }
+  }
+}

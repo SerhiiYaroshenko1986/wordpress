@@ -1,0 +1,20 @@
+<svg width="215" height="32" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <mask y="-1" x="-1" height="2" width="2" id="n21ob">
+   <path id="svg_1" d="m15,13l375,0l0,222l-375,0l0,-222z" fill="#fff"/>
+   <path id="svg_2" d="m15,13l375,0l0,192.772l-21.355,0a8,8 0 0 0 -6.602,3.482l-15.234,22.264a8,8 0 0 1 -6.603,3.482l-151.56,0a8,8 0 0 1 -6.603,-3.482l-15.234,-22.264a8,8 0 0 0 -6.603,-3.482l-145.206,0l0,-192.772z"/>
+  </mask>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="34" width="217" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_3">
+   <g id="svg_4">
+    <path id="svg_8" d="m208.4381,0a8,8 0 0 0 -6.602,3.482l-15.234,22.264a8,8 0 0 1 -6.603,3.482l-151.56,0a8,8 0 0 1 -6.603,-3.482l-15.234,-22.264a8,8 0 0 0 -6.603,-3.482l208.439,0z" fill="#fff"/>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,110 @@
+#icl_translations > img {
+  width: auto !important;
+  height: auto !important;
+}
+
+.block-editor .editor-post-title {
+  padding: 0 17px;
+}
+
+.block-editor .editor-post-title__input {
+  border-width: 1px 1px 1px 0;
+}
+
+.block-editor .editor-post-title .editor-post-permalink {
+  left: 0;
+  right: 0;
+}
+
+.block-editor .editor-post-featured-image .components-responsive-wrapper__content {
+  width: 100%;
+}
+
+.block-editor .editor-block-list__layout {
+  padding: 0 30px;
+}
+
+.block-editor .wp-block {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.editor-styles-wrapper ul,
+.editor-styles-wrapper .editor-block-list__layout ul {
+  list-style: none;
+}
+
+.editor-styles-wrapper .block-library-list ol,
+.editor-styles-wrapper .block-library-list ul {
+  margin: 0;
+}
+
+.editor-styles-wrapper .block-library-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.edit-post-layout .components-notice-list {
+  z-index: 100;
+}
+
+.wp-core-ui .attachment .landscape img {
+  max-width: none;
+}
+
+@media screen and (min-width: 600px) {
+  .block-editor .editor-post-title {
+    padding-left: 35px;
+    padding-right: 15px;
+  }
+
+  .block-editor .editor-post-title__block {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .block-editor .editor-post-title .editor-post-permalink {
+    margin: 0 0 0 3px;
+  }
+
+  .block-editor .editor-post-publish-panel {
+    width: 25%;
+  }
+
+  .block-editor .editor-block-list__layout {
+    padding-left: 75px;
+    padding-right: 55px;
+  }
+
+  .block-editor .wp-block.editor-default-block-appender.block-editor-default-block-appender {
+    margin: 0 -40px;
+  }
+
+  .block-editor-block-list__empty-block-inserter,
+  .block-editor-default-block-appender .block-editor-inserter {
+    left: -59px;
+  }
+}
+
+@media screen and (min-width: 783px) {
+  .edit-post-layout.is-sidebar-opened .edit-post-sidebar,
+  .edit-post-layout.is-sidebar-opened .edit-post-plugin-sidebar__sidebar-layout {
+    width: 280px;
+  }
+
+  .edit-post-layout.is-sidebar-opened .edit-post-layout__content {
+    margin-right: 280px;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .edit-post-layout.is-sidebar-opened .edit-post-sidebar,
+  .edit-post-layout.is-sidebar-opened .edit-post-plugin-sidebar__sidebar-layout {
+    width: 25%;
+  }
+
+  .edit-post-layout.is-sidebar-opened .edit-post-layout__content {
+    margin-right: 25%;
+  }
+}

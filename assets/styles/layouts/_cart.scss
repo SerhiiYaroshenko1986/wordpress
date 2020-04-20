@@ -1,0 +1,57 @@
+.cart-total-price {
+  span {
+    font-family: "Roboto", sans-serif !important;
+  }
+}
+
+.cart-wrap {
+  table {
+    td {
+      a {
+        font-family: "Roboto", sans-serif !important;
+      }
+
+      span {
+        font-family: "Roboto", sans-serif !important;
+      }
+    }
+
+    .cart-table-title {
+      th {
+        font-family: "Roboto", sans-serif !important;
+      }
+    }
+  }
+}
+
+.quantity {
+  .screen-reader-text {
+    display: none;
+  }
+}
+
+.checkout-button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  width: 100px;
+  height: 35px;
+  background-color: rgb(40, 91, 187);
+  border-radius: 15px;
+  padding: 10px 20px;
+  margin: 15px 0;
+}
+
+.cart-total-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+@media screen and (max-width: 540px) {
+  .cart-checkout {
+    text-align: center !important;
+  }
+}

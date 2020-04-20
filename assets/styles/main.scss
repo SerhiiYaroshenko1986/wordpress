@@ -1,0 +1,22 @@
+@import "common/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+
+/** Import everything from autoload */
+@import "./autoload/**/*";
+@import "common/global";
+@import "layouts/header";
+@import "layouts/footer";
+@import "layouts/hero";
+@import "layouts/releases";
+@import "layouts/cart";
+@import "layouts/archive-page";
+@import "layouts/checkout";
+@import "layouts/singlePage";
+
+/**
+ * Import npm dependencies
+ *
+ * Prefix your imports with `~` to grab from node_modules/
+ * @see https://github.com/webpack-contrib/sass-loader#imports
+ */
+// @import "~some-node-module";

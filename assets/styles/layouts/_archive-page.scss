@@ -1,0 +1,38 @@
+.shop-page-cart {
+  position: absolute;
+  top: 58%;
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  height: 60px;
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+    transition: all 0.3s linear;
+  }
+
+  a {
+    margin-top: 10px;
+    text-transform: uppercase;
+    width: 220px;
+    height: 40px;
+    padding: 15px 25px;
+    background-color: #1d1c1c;
+    border-radius: 15px;
+    position: relative;
+    top: 20px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.categories-link {
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #1d1c1c;
+  cursor: pointer;
+}
