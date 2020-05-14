@@ -111,6 +111,7 @@
     "foundation-sites": "^6.5.0-rc.2",
     "jquery": "^3.5.0",
     "motion-ui": "~1.2.2",
-    "popper.js": "^1.14.3"
+    "popper.js": "^1.14.3",
+    "slick-carousel": "^1.8.1"
   }
 }

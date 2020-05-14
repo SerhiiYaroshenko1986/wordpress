@@ -1,36 +1,141 @@
+.item-container {
+  .productImage {
+    cursor: pointer;
+  }
+
+  .item-name {
+    font-size: 27px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .item-price {
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .sub,
+  .add {
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+    background-color: #fff;
+    border: 1px solid #c9c5c5;
+    width: 50px;
+    height: 50px;
+    color: #757373;
+    padding: 0;
+
+    &:hover {
+      color: #fff;
+      background-color: rgba(0, 0, 0, 1);
+      transition: all 0.2s linear;
+    }
+  }
+
+  .quantityInStockContainerFirstLoad,
+  .quantityInStockContainer {
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+    margin: 10px 0;
+
+    .quantityInStock {
+      font-weight: 700;
+    }
+  }
+
+  .quantityToOrderContainer,
+  .quantityToOrderContainerFirstLoad {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    #quantityToOrder {
+      font-family: "Montserrat", sans-serif;
+      width: 50px;
+      height: 50px;
+      text-align-last: center;
+      border: 1px solid #c9c5c5;
+    }
+  }
+
+  .firstLoadError,
+  .quantityInStockContainerError {
+    margin: 10px 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+  }
+
+  .item-description {
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    margin: 20px 0;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 .productColors {
   display: flex;
   cursor: pointer;
 
+  .productColor {
+    margin: 10px 10px 10px 0;
+  }
+
   .activeColor {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     border: 1px solid black;
+    width: 55px !important;
+    height: 55px !important;
   }
 }
 
 .productSize {
   border: 1px solid gray;
   cursor: pointer;
+  margin-left: 0 !important;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .activeSize {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  width: 55px !important;
+  height: 55px !important;
 }
 // spinner for add to cart button
 .addToCartSinglePage {
+  width: 220px;
+  height: 45px;
+  background-color: #7ac142;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  text-align: center;
+
   .lds-ring {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     position: relative;
     margin: 0 auto;
     width: 220px;
     height: 45px;
+    text-align: center;
   }
 
   .lds-ring div {
+    text-align: center;
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 25px;
+    width: 20px;
     height: 30px;
     margin: 8px;
     border: 3px solid #fff;
@@ -60,6 +165,187 @@
       transform: rotate(360deg);
     }
   }
+
+  .addToCartSuccsess {
+    &:focus {
+      border: none;
+    }
+
+    .checkmark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2;
+      stroke: #7ac142;
+      stroke-miterlimit: 10;
+      box-shadow: inset 0 0 0 #7ac142;
+      animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+    }
+
+    .checkmark__circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2;
+      stroke-miterlimit: 10;
+      stroke: #fff;
+      fill: none;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark__check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes scale {
+      0%,
+      100% {
+        transform: none;
+      }
+
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    @keyframes fill {
+      100% {
+        box-shadow: inset 0 0 0 30px #fff;
+      }
+    }
+  }
 }
 
-// succsess tick animation
+// slider
+.slider-wrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slider {
+    position: relative;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slider-close-btn {
+    position: absolute;
+    top: 7px;
+    right: 15px;
+    z-index: 50;
+
+    i {
+      font-size: 30px;
+      color: #7ac142;
+    }
+  }
+}
+
+.single-page-gallery {
+  img {
+    width: 100%;
+    height: auto;
+    z-index: 1000;
+    padding: 10px;
+  }
+}
+
+.fa {
+  font-size: 30px;
+  color: #2b2929;
+  cursor: pointer;
+}
+
+// Comments
+.itemCommentsContainer {
+  .ifCommentsNone {
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+  }
+
+  .item-comments-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      height: 40px;
+      margin: 10px 0;
+      padding-left: 5px;
+    }
+
+    textarea {
+      margin-bottom: 10px;
+      padding: 5px 0 0 5px;
+    }
+
+    button {
+      width: 200px;
+      height: 40px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #7ac142;
+      margin: 0 auto;
+      border: none;
+
+      &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        transform: scale(1.02);
+        transition: all 0.3s linear;
+      }
+    }
+  }
+
+  .comments-container-inner {
+    display: flex;
+    justify-content: space-between;
+
+    .comment-author {
+      font-size: 19px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+    }
+
+    .comment-date {
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+    }
+  }
+
+  .comment-text {
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .item-wrap-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,94 @@
+.sign-up {
+  height: 120px;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.sign-up_text {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 0;
+  margin-right: 30px;
+
+  @media screen and (max-width: 540px) {
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.sign-up-button {
+  width: 110px;
+  height: 40px;
+  border-radius: 20px;
+  background: white;
+  border: 0;
+  box-shadow: 0;
+}
+
+.sign-up-button p {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.subscribe-wrap {
+  width: 100%;
+  position: absolute;
+  top: -80px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .subscribe-form-container {
+    display: none;
+    width: 300px;
+    height: 250px;
+    background-color: #131212;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    z-index: 200;
+    border-radius: 10px;
+    position: relative;
+
+    label {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .emaillist {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .es_subscription_form_submit {
+      width: 130px;
+      height: 35px;
+      background-color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-transform: uppercase;
+      margin-left: 30px;
+
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        transition: all 0.2s linear;
+      }
+    }
+  }
+
+  .close-btn-container {
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    cursor: pointer;
+  }
+}

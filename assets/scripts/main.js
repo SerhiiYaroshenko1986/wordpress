@@ -1,14 +1,18 @@
 require("jquery");
+import "slick-carousel";
+
 jQuery(document).ready(function($) {
-  console.log("hello world");
-  $(".categories-link").on("click", function(e) {
+  $(".categories-link, .categories-link-all").on("click", function(e) {
     e.preventDefault();
+    $(".categories-link, .categories-link-all").removeClass("activeCategory");
+    $(this).addClass("activeCategory");
+    $(".pa_size").removeClass("activeAttributes");
+    $(".pa_color").removeClass("activeAttributes");
     let id = e.target.id;
     if (id === "0") {
       id = "";
     }
     let ajaxurl = "/wp-admin/admin-ajax.php";
-    console.log(id, ajaxurl);
     jQuery.post(
       ajaxurl,
       {
@@ -24,10 +28,13 @@ jQuery(document).ready(function($) {
   // ajax request for color attribute sorting
   $(".pa_color").on("click", function(e) {
     e.preventDefault();
+
     let nameOfClass = this.className;
     let id = e.target.id;
-    console.log(nameOfClass, id);
-
+    $(".categories-link, .categories-link-all").removeClass("activeCategory");
+    $(".pa_size").removeClass("activeAttributes");
+    $(".pa_color").removeClass("activeAttributes");
+    $(this).addClass("activeAttributes");
     let ajaxurl = "/wp-admin/admin-ajax.php";
 
     jQuery.post(
@@ -46,9 +53,13 @@ jQuery(document).ready(function($) {
   // ajax request for size attribute sorting
   $(".pa_size").on("click", function(e) {
     e.preventDefault();
+
     let nameOfClass = this.className;
     let id = e.target.id;
-    console.log(nameOfClass, id);
+    $(".pa_color").removeClass("activeAttributes");
+    $(".pa_size").removeClass("activeAttributes");
+    $(".categories-link, .categories-link-all").removeClass("activeCategory");
+    $(this).addClass("activeAttributes");
     let ajaxurl = "/wp-admin/admin-ajax.php";
 
     jQuery.post(
@@ -69,23 +80,15 @@ jQuery(document).ready(function($) {
 
     let url = "https://api.novaposhta.ua/v2.0/json/";
 
-    jQuery.post(
-      url,
-      {
-        // apiKey: "6416ecb9be5197c1d554d97514c7ccd3",
-        modelName: "Address",
-        calledMethod: "searchSettlements",
-        methodProperties: {
-          CityName: cityName,
-          Limit: 5,
-        },
+    jQuery.post(url, {
+      // apiKey: "6416ecb9be5197c1d554d97514c7ccd3",
+      modelName: "Address",
+      calledMethod: "searchSettlements",
+      methodProperties: {
+        CityName: cityName,
+        Limit: 5,
       },
-
-      function(output) {
-        console.log(output);
-        // $(".my-products").html(output);
-      }
-    );
+    });
   });
 
   // delivery (nova poshta api)
@@ -97,7 +100,6 @@ jQuery(document).ready(function($) {
 
   function getDeliveryAddress() {
     let cityName = $("#city").val();
-    console.log(cityName);
     if (!(cityName == "")) {
       $.ajax({
         type: "POST",
@@ -118,7 +120,6 @@ jQuery(document).ready(function($) {
           withCredentials: false,
         },
         success: function(responde) {
-          console.log(responde);
           $("#result").empty();
           $(".countDelivery").css("display", "none");
           $("#department")
@@ -127,13 +128,15 @@ jQuery(document).ready(function($) {
           let data = responde.data;
 
           for (let i = 0; i < data.length; i++) {
-            $("#result").append(
-              "<p class='cities' id=" +
-                data[i].Description +
-                ">" +
-                data[i].Description +
-                "</p>"
-            );
+            $("#result")
+              .css("color", "#212529")
+              .append(
+                "<p class='cities' id=" +
+                  data[i].Description +
+                  ">" +
+                  data[i].Description +
+                  "</p>"
+              );
           }
         },
       });
@@ -141,7 +144,6 @@ jQuery(document).ready(function($) {
         let value = event.target.id;
         $("#city").val(value);
         $("#result").empty();
-        console.log(value);
         if (!(value == "")) {
           $.ajax({
             type: "POST",
@@ -162,13 +164,10 @@ jQuery(document).ready(function($) {
               withCredentials: false,
             },
             success: function(responde) {
-              console.log(responde.success);
               if (responde.success) {
                 $("#department").empty();
                 let data = responde.data;
                 var CityRecipient = responde.data[0].CityRef;
-                console.log(responde);
-                console.log(CityRecipient, "city");
                 for (let i = 0; i < data.length; i++) {
                   $("#department")
                     .append(
@@ -190,7 +189,6 @@ jQuery(document).ready(function($) {
                   action: "getDataDelivery",
                 },
                 function(output) {
-                  console.log(output);
                   let length = parseInt(+output.length);
                   let width = parseInt(+output.width);
                   let height = parseInt(+output.height);
@@ -226,11 +224,9 @@ jQuery(document).ready(function($) {
                       withCredentials: false,
                     },
                     success: function(responde) {
-                      console.log(responde);
                       let cost = responde.data[0].Cost;
                       $(".countDelivery").css("display", "block");
                       $("#deliveryCost").html(cost);
-                      console.log(cost);
                     },
                   });
                 },
@@ -243,7 +239,8 @@ jQuery(document).ready(function($) {
     } else {
       $("#result")
         .empty()
-        .append("<p>Будь ласка введіть назву міста</p>");
+        .append("<p>Будь ласка введіть назву міста</p>")
+        .css("color", "red");
     }
   }
 });
@@ -258,7 +255,6 @@ $("#checkout-button").on("click", function(e) {
   $("#firstNameError").css("display", "none");
   $("#secondNameError").css("display", "none");
   $("#phoneError").css("display", "none");
-  console.log("you press me!");
   e.preventDefault();
   // regEx for email
   let regEmail = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -267,7 +263,7 @@ $("#checkout-button").on("click", function(e) {
     $("#emailError").css("display", "block");
   }
   // regEx for name (first and second)
-  let regName = /([a-zA-Z]){3}$|([а-яА-ЯЁё]){3}$/i;
+  let regName = /^[аАбБвВгГґҐдДіІїЇеЕєЄжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩьЬюЮяЯ]{3,}/i;
   let firstNameFormat = regName.test($("#firstName").val());
   if (!firstNameFormat) {
     $("#firstNameError").css("display", "block");
@@ -283,16 +279,16 @@ $("#checkout-button").on("click", function(e) {
     $("#phoneError").css("display", "block");
   }
   if ($("#city").val() == "") {
-    $("#result").text("Заповніть будь ласка поле доставки");
+    $("#result")
+      .text("Заповніть будь ласка поле доставки")
+      .css("color", "red");
   }
   if (
-    !(
-      firstNameFormat &&
-      secondNameFormat &&
-      phoneFormat &&
-      emailFormat &&
-      $("#city").val() == ""
-    )
+    firstNameFormat &&
+    secondNameFormat &&
+    phoneFormat &&
+    emailFormat &&
+    $("#city").val() != ""
   ) {
     let url = "/wp-admin/admin-ajax.php";
     let email = $("#email").val();
@@ -316,7 +312,7 @@ $("#checkout-button").on("click", function(e) {
       function(responde) {
         if (responde == "succsess") {
           $(".checkout").hide();
-          $(".checkoutSuccsess").show();
+          $(".checkoutSuccsess").css("display", "flex");
         }
       }
     );
@@ -327,13 +323,14 @@ $("#checkout-button").on("click", function(e) {
 
 // Single page choose color
 $(".productColor").on("click", function(e) {
+  $(".quantityInStockContainerFirstLoad").hide();
+  $(".quantityToOrderContainerFirstLoad").hide();
   $(".productColor").removeClass("activeColor");
   $(".firstLoadError").css("display", "none");
   $(this).addClass("activeColor");
   let productId = $(this).attr("data-productid");
   let color = jQuery.trim(e.target.id);
   let size = jQuery.trim($(".activeSize")[0].id);
-  console.log(color, productId);
   let url = "/wp-admin/admin-ajax.php";
   let data = {
     action: "getVariationImage",
@@ -348,7 +345,6 @@ $(".productColor").on("click", function(e) {
     dataType: "text",
     success: function(data) {
       let res = jQuery.parseJSON(data);
-      console.log(res);
       $("#productImage").attr("src", res.url);
       $(".item-price")
         .html(res.price)
@@ -362,6 +358,8 @@ $(".productColor").on("click", function(e) {
           .css("cursor", "not-allowed");
       } else {
         $(".quantityInStockContainerError").css("display", "none");
+        $(".addToCartSinglePage-btnText").show();
+        $(".addToCartSuccsess").hide();
         $(".quantityInStock")
           .html(res.quantityInStock)
           .attr("id", res.quantityInStock);
@@ -372,7 +370,7 @@ $(".productColor").on("click", function(e) {
           })
           .val("1");
         $(".quantityInStockContainer").css("display", "block");
-        $(".quantityToOrderContainer").css("display", "block");
+        $(".quantityToOrderContainer").css("display", "flex");
         $("#addToCartSinglePage")
           .prop("disabled", false)
           .css("cursor", "pointer");
@@ -393,13 +391,14 @@ $(".productColor").on("click", function(e) {
 
 // Single page choose size
 $(".productSize").on("click", function(e) {
+  $(".quantityInStockContainerFirstLoad").hide();
+  $(".quantityToOrderContainerFirstLoad").hide();
   $(".productSize").removeClass("activeSize");
   $(".firstLoadError").css("display", "none");
   $(this).addClass("activeSize");
   let color = jQuery.trim($(".activeColor")[0].id);
   let productId = $(this).attr("data-productid");
   let size = jQuery.trim(e.target.id);
-  console.log(size, productId, color);
   let url = "/wp-admin/admin-ajax.php";
   let data = {
     action: "getVariationSizeQuantity",
@@ -414,7 +413,6 @@ $(".productSize").on("click", function(e) {
     dataType: "text",
     success: function(data) {
       let res = jQuery.parseJSON(data);
-      console.log(res.quantityInStock);
       $(".item-price")
         .html(res.price)
         .append(" ₴");
@@ -428,6 +426,8 @@ $(".productSize").on("click", function(e) {
         $(".quantityInStockContainer").css("display", "none");
       } else {
         $(".quantityInStockContainerError").css("display", "none");
+        $(".addToCartSinglePage-btnText").show();
+        $(".addToCartSuccsess").hide();
         $(".quantityInStock")
           .html(res.quantityInStock)
           .attr("id", res.quantityInStock);
@@ -438,7 +438,7 @@ $(".productSize").on("click", function(e) {
           })
           .val("1");
         $(".quantityInStockContainer").css("display", "block");
-        $(".quantityToOrderContainer").css("display", "block");
+        $(".quantityToOrderContainer").css("display", "flex");
         $("#addToCartSinglePage")
           .prop("disabled", false)
           .css("cursor", "pointer");
@@ -476,7 +476,7 @@ $(".add").click(function() {
       .prev()
       .val() < maxquantity
   ) {
-    $(this)
+    +$(this)
       .prev()
       .val(
         +$(this)
@@ -503,18 +503,13 @@ $(".sub").click(function() {
       .next()
       .val() > 1
   ) {
-    if (
-      $(this)
-        .next()
-        .val() > 1
-    )
-      $(this)
-        .next()
-        .val(
-          +$(this)
-            .next()
-            .val() - 1
-        );
+    +$(this)
+      .next()
+      .val(
+        +$(this)
+          .next()
+          .val() - 1
+      );
   }
 });
 
@@ -524,7 +519,6 @@ $("#addToCartSinglePage").on("click", function() {
   let productId = $(".activeColor").attr("data-productid");
   let size = jQuery.trim($(".activeSize")[0].id);
   let quantity = $("#quantityToOrder").val();
-  console.log(color, productId, size, quantity);
   let url = "/wp-admin/admin-ajax.php";
   let data = {
     action: "addToCartSinglePage",
@@ -540,10 +534,14 @@ $("#addToCartSinglePage").on("click", function() {
     dataType: "text",
     beforeSend: function() {
       $(".addToCartSinglePage-btnText").css("display", "none");
-      $(".lds-ring").css("display", "block");
+      $(".lds-ring").css("display", "flex");
     },
     success: function(data) {
-      console.log(data);
+      if (data > 0) {
+        $(".header-cart-count")
+          .empty()
+          .text(data);
+      }
     },
     error: function(xhr) {
       var errorMessage = xhr.status + ": " + xhr.statusText;
@@ -551,7 +549,290 @@ $("#addToCartSinglePage").on("click", function() {
     },
     complete: function() {
       $(".lds-ring").hide();
-      $(".add-success--tick").show();
+      $(".addToCartSuccsess").show();
+      function hideSuccsess() {
+        $(".addToCartSuccsess").hide();
+      }
+      function showAddBtn() {
+        $(".addToCartSinglePage-btnText").show();
+      }
+      setTimeout(hideSuccsess, 3000);
+      setTimeout(showAddBtn, 5000);
     },
   });
+});
+
+// get slider on click
+let counter = 0;
+$(".release-item").on("click", function() {
+  let windowSize = $(window).width();
+
+  if (windowSize > 475 && counter == 0) {
+    counter++;
+    let productId = $(".activeColor").attr("data-productid");
+    let url = "/wp-admin/admin-ajax.php";
+    let data = {
+      action: "singleProductGallery",
+      productId: productId,
+    };
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      dataType: "text",
+
+      success: function(data) {
+        let res = jQuery.parseJSON(data);
+        for (let key in res) {
+          $(".slider").append("<div>" + res[key] + "</div>");
+        }
+        $(".slider-wrap").show();
+        // Slider
+        $(".slider").slick({
+          dots: true,
+          infinite: false,
+          speed: 300,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          adaptiveHeight: true,
+          centerMode: false,
+          nextArrow: '<i class="fa fa-chevron-right"></i>',
+          prevArrow: '<i class="fa fa-chevron-left"></i>',
+
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: true,
+                dots: true,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        });
+      },
+      error: function(xhr) {
+        var errorMessage = xhr.status + ": " + xhr.statusText;
+        console.log("Error - " + errorMessage);
+      },
+    });
+  } else if (counter > 0) {
+    $(".slider-wrap").show();
+  }
+});
+$(".slider-close-btn").on("click", function() {
+  $(".slider-wrap").hide();
+});
+
+// add comments
+$("#addCommentSubmit").on("click", function(e) {
+  e.preventDefault();
+  let date = new Date();
+  date = date.toLocaleString();
+  let postId = $(".activeColor").attr("data-productid");
+  let comment_author = $("#name").val();
+  let comment_content = $("#message").val();
+  if (comment_author == "" || comment_content == "") {
+    $(".errorCommentsForm").html("Поля повинні бути заповнені");
+  } else {
+    $(".errorCommentsForm").empty();
+    let url = "/wp-admin/admin-ajax.php";
+    let data = {
+      action: "singleProductComments",
+      postId: postId,
+      comment_author: comment_author,
+      comment_content: comment_content,
+    };
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      dataType: "text",
+      beforeSend: function() {},
+      success: function(data) {
+        if (data == "done") {
+          $(".comments").prepend(
+            "<div><span>" +
+              comment_author +
+              "</span><span>" +
+              date +
+              "</span></div><div>" +
+              comment_content +
+              "</div>"
+          );
+          $("#comments-form")[0].reset();
+        }
+      },
+      error: function(xhr) {
+        var errorMessage = xhr.status + ": " + xhr.statusText;
+        console.log("Error - " + errorMessage);
+      },
+      complete: function() {},
+    });
+  }
+});
+// slider for probably buy section of single product page
+$(".slider_probably_buy").slick({
+  dots: true,
+  arrows: false,
+  infinite: false,
+  speed: 300,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  adaptiveHeight: false,
+  centerMode: false,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+});
+
+// search form
+$("#search").on("click", function() {
+  $("#search-text").val("");
+  $(".search-field-container").css("display", "block");
+  $(".overflowChange").css("overflow-y", "hidden");
+});
+$(".search-field-close-btn").on("click", function() {
+  $(".search-field-container").css("display", "none");
+  $(".overflowChange").css("overflow-y", "auto");
+});
+$("#search-text").on("keypress", function() {
+  clearTimeout($.data(this, "timer"));
+  let wait = setTimeout(getSearchItems, 500);
+  $(this).data("timer", wait);
+});
+function getSearchItems() {
+  $("#search-result").empty();
+  $(".search-result-container").css({
+    "overflow-y": "hidden",
+  });
+  let searchText = $("#search-text").val();
+  let url = "/wp-admin/admin-ajax.php";
+  let data = {
+    action: "searchProductForm",
+    searchText: searchText,
+  };
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: data,
+    dataType: "text",
+    beforeSend: function() {},
+    success: function(data) {
+      $("#search-result").prepend(data);
+      $(".search-result-container").css({
+        "overflow-y": "scroll",
+        height: "100%",
+      });
+    },
+    error: function(xhr) {
+      var errorMessage = xhr.status + ": " + xhr.statusText;
+      console.log("Error - " + errorMessage);
+    },
+    complete: function() {},
+  });
+}
+
+// hamburger menu
+let Closed = false;
+
+$(".hamburger").click(function() {
+  if (Closed == true) {
+    $(".hamburger-container").css("top", "-10px");
+    $(".header-nav-menu").animate(
+      {
+        width: "0",
+      },
+      "5000",
+      function() {
+        $(this).hide(500);
+      }
+    );
+    $(this).removeClass("open");
+    $(this).addClass("closed");
+    $(".header-nav-menu").css("display", "block");
+    Closed = false;
+  } else {
+    $(".hamburger-container").css("top", "-5px");
+    $(".header-nav-menu").css("width", "40%");
+    $(".header-nav-menu").show(500);
+    $(this).removeClass("closed");
+    $(this).addClass("open");
+    $(".header-nav-menu").css("display", "block");
+    Closed = true;
+  }
+});
+$(window).on("resize", function() {
+  let windowSize = +$(window).width();
+  if (windowSize >= 992) {
+    let displayValue = $(".header-nav-menu").css("display");
+    if (displayValue == "none") {
+      $(".header-nav-menu").css({
+        display: "flex",
+        width: "auto",
+      });
+    }
+  } else if (windowSize > 768) {
+    $(".categories-filter-wrap")
+      .unbind()
+      .css("display", "block");
+  } else {
+    $(".header-nav-menu").css("display", "none");
+    $(".categories-filter-wrap").css("display", "none");
+  }
+});
+
+// archive page
+// show filters on mobile versions
+$(".categories-filter-title").on("click", function() {
+  let windowSize = +$(window).width();
+
+  if (windowSize < 768) {
+    $(".categories-filter-wrap").toggle(500);
+  }
+});
+
+// subscribe form
+$("#subscribe-button").on("click", function() {
+  $(".subscribe-form-container ").show();
+});
+$(".close-btn-container ").on("click", function() {
+  $(".subscribe-form-container ").hide();
 });

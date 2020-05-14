@@ -4,8 +4,7 @@
     "customizer": ["./scripts/customizer.js"]
   },
   "publicPath": "/wp-content/themes/webpack-theme",
-  "devUrl": "http://e-store/",
+  "devUrl": "https://gymequipment.wp4.host/",
   "proxyUrl": "http://localhost:3000",
-  "cacheBusting": "[name]_[hash:8]",
-  "watch": ["*.php", "**/*.php"]
+  "cacheBusting": "[name]_[hash:8]"
 }

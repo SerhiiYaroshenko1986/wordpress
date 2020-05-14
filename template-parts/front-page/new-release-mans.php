@@ -1,12 +1,12 @@
 <section class="new-releases-women container-fluid">
     <div class="row mt-2">
         <div class="release-heading col-md-6 p-0">
-            <p class="release-heading-right-text">MANS</p>
-            <p class="release-heading-left-text">NEW RELEASES</p>
+            <p class="release-heading-right-text"><?php the_field('mtitle') ?></p>
+            <p class="release-heading-left-text"><?php the_field('msuptitle') ?></p>
         </div>
         <div class="release-heading-link col-md-6 p-0">
-            <a href="" class="all_link sm-link sm-link_padding-all sm-link5">
-                <span class="sm-link__label">View All</span>
+            <a href="/shop" class="all_link sm-link sm-link_padding-all sm-link5">
+                <span class="sm-link__label"><?php the_field('mbutton') ?></span>
             </a>
         </div>
     </div>
@@ -23,17 +23,9 @@
         if ($loop->have_posts()) {
             while ($loop->have_posts()) : $loop->the_post();
         ?>
-                <div class="col-lg-3 col-md-6 release-item">
-                    <a href="<?php the_permalink() ?>"> <?php woocommerce_template_loop_product_thumbnail() ?></a>
-                    <a href="<?php the_permalink() ?>">
-                        <p class="item-name"><?php the_title() ?></p>
-                    </a>
-                    <p class="item-color">Black</p>
-                    <p class="item-price"><?php woocommerce_template_loop_price() ?></p>
-                    <p class="shop-page-cart"><?php woocommerce_template_loop_add_to_cart();
-
-                                                ?></p>
-                </div>
+                <?php
+                get_template_part('template-parts/front-page/templateForProduct')
+                ?>
 
 
         <?php endwhile;
